@@ -22,6 +22,3 @@ This is a simple SQL project for managing a bookstore. It includes tables for bo
 - Find books by a specific author.
 - Get the total price of all books.
 
-## License
-
-This project is licensed under the MIT License.
