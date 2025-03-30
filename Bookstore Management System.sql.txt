@@ -1,0 +1,70 @@
+-- Create Authors Table
+CREATE TABLE Authors (
+    AuthorID INT PRIMARY KEY AUTO_INCREMENT,
+    Name VARCHAR(100) NOT NULL,
+    BirthDate DATE
+);
+
+-- Create Books Table
+CREATE TABLE Books (
+    BookID INT PRIMARY KEY AUTO_INCREMENT,
+    Title VARCHAR(200) NOT NULL,
+    AuthorID INT,
+    PublishedYear INT,
+    Genre VARCHAR(50),
+    Price DECIMAL(10, 2),
+    FOREIGN KEY (AuthorID) REFERENCES Authors(AuthorID)
+);
+
+-- Create Customers Table
+CREATE TABLE Customers (
+    CustomerID INT PRIMARY KEY AUTO_INCREMENT,
+    Name VARCHAR(100) NOT NULL,
+    Email VARCHAR(100) UNIQUE NOT NULL,
+    Phone VARCHAR(15)
+);
+
+
+
+
+================================================================
+
+
+-- Insert Sample Authors
+INSERT INTO Authors (Name, BirthDate) VALUES
+('George Orwell', '1903-06-25'),
+('J.K. Rowling', '1965-07-31'),
+('J.R.R. Tolkien', '1892-09-03');
+
+-- Insert Sample Books
+INSERT INTO Books (Title, AuthorID, PublishedYear, Genre, Price) VALUES
+('1984', 1, 1949, 'Dystopian', 15.99),
+('Harry Potter and the Philosopher\'s Stone', 2, 1997, 'Fantasy', 20.99),
+('The Hobbit', 3, 1937, 'Fantasy', 10.99);
+
+-- Insert Sample Customers
+INSERT INTO Customers (Name, Email, Phone) VALUES
+('Alice Smith', 'alice@example.com', '123-456-7890'),
+('Bob Johnson', 'bob@example.com', '098-765-4321');
+
+
+
+==================================================================
+
+
+-- Get all books with their authors
+SELECT b.Title, a.Name AS Author, b.PublishedYear, b.Genre, b.Price
+FROM Books b
+JOIN Authors a ON b.AuthorID = a.AuthorID;
+
+-- Get all customers
+SELECT * FROM Customers;
+
+-- Find books by a specific author
+SELECT b.Title
+FROM Books b
+JOIN Authors a ON b.AuthorID = a.AuthorID
+WHERE a.Name = 'J.K. Rowling';
+
+-- Get total price of all books
+SELECT SUM(Price) AS TotalPrice FROM Books;
